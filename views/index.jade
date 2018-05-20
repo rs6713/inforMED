@@ -54,19 +54,19 @@ block content
                chart-click="onClick"
       )
     div(id="main-chat")
-      iframe(src="chat_bot.html")
+      //iframe(src="chat_bot.html")
 
-      //#chat
-        div(ng-repeat="conv in conversation" id="{{conv.type}}-text" )
-          {{conv.text}}
-        div(ng-if="conv.type=='bot'")#bot-text
-          {{conv.text}}
+      #chat
+        div(ng-repeat="conv in conversation", id="{{conv.type}}-text", ng-bind-html="conv.text" )
+          //{{conv.text}}
+        //div(ng-if="conv.type=='bot'", ng-bind-html="conv.text")#bot-text
+          //{{conv.text}}
         br
 
 
-      //#chat-submit
-        input(placeholder="What do you want to ask?" ng-model="userquery")
-        div(ng-click="submitchat()") Submit
+      #chat-submit
+        input(placeholder="What do you want to ask?", ng-model="userquery", ng-keypress="pushChatEnter($event)")
+        div(ng-click="pushChat()") Submit
     div(id="login")
       div(id="login-container")
         input(placeholder="Username" ng-model="username")
