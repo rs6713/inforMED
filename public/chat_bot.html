@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    
+        <style>
+            .toolbar__content{
+                background-color:#3EC6FA;
+            } 
+            .message-bot .message-bubble{
+                background-color:#007EAD;
+            }
+
+        </style>
+    
+    </head>
+    <body>
+        <script src="/lex-web-ui-loader.js"></script>
+        <script>
+          /*
+            The loader library creates a global object named ChatBotUiLoader
+            It includes the FullPageLoader constructor
+            An instance of FullPageLoader has the load function which kicks off
+            the load process
+          */
+    
+          // The following statement instantiate FullPageLoader and
+          // calls the load function.
+          // It is assumed that the configuration is present in the
+          // default JSON file: ./lex-web-ui-loader-config.json]
+          var lexWebUiLoader = new ChatBotUiLoader.FullPageLoader();
+          var chatbotUiconfig = {
+          cognito: {
+            poolId: 'us-east-1:d598e55a-bc81-4c37-8390-5034f2d0089b'
+          },
+          lex: {
+              initialText: 'How can I help you?',
+              botName: 'inforMED'
+            },
+            ui: {
+              toolbarTitle: 'Help Bot',
+              toolbarLogo: ''
+            },
+          };
+          // You can pass the config as a parameter.
+          // The loader can also get its config dynamically
+          // from a JSON file or from the Mobile Hub config script
+          lexWebUiLoader.load(chatbotUiconfig)
+            // returns a promise that is resolved once the chatbot UI is loaded
+            .then(function () {
+              console.log('chatbot UI loaded');
+            })
+            .catch(function (error) {
+              console.error('chatbot UI failed to load', error);
+            });
+        </script>
+    </body>
+</html>

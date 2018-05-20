@@ -1,0 +1,26 @@
+{
+    "cognito": {
+      "poolId": "us-east-1:3b3842de-5a9b-4502-ac14-0e98466ff2bc"
+    },
+    "lex": {
+      "botName": "botName",
+      "initialText": "Bot to help keep patients informed and engaged. Just type \"Services\" or click on the mic and say it.",
+      "initialSpeechInstruction": "Say 'Services' to get started."
+    },
+    "ui": {
+      "parentOrigin": "",
+      "toolbarTitle": "Informed",
+      "pushInitialTextOnRestart": false
+    },
+    "polly": {
+      "voiceId": "Salli"
+    },
+    "recorder": {
+      "preset": "speech_recognition"
+    },
+    "iframe": {
+      "iframeOrigin": "",
+      "iframeSrcPath": "/index.html#/?lexWebUiEmbed=true",
+      "shouldLoadIframeMinimized": true
+    }
+  }

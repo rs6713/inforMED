@@ -1,0 +1,107 @@
+doctype html
+html(ng-app="informed")
+  head
+    title= title
+
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    //disable zooming capabilities
+    meta(name="viewport", content="width=device-width,initial-scale=1, maximum-scale=1, user-scalable=no")
+    meta(charset="utf-8")
+
+    //Jquery JS and CSS
+    script(src="https://code.jquery.com/jquery-3.2.1.min.js",integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=",crossorigin="anonymous")
+    script(src="https://code.jquery.com/ui/1.12.1/jquery-ui.js")
+    link(rel="stylesheet", href="https://code.jquery.com/ui/1.10.4/themes/black-tie/jquery-ui.css")
+    
+    //Angular Material style sheet
+    link(rel="stylesheet", href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css")
+
+    //angular
+    //script(src="../node_modules/chart.js/dist/Chart.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js")
+
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js")
+    script(src="https://cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.min.js")
+
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js")   
+
+    //Font awesome
+    script(src="https://use.fontawesome.com/1079ce90fa.js") 
+
+
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js")
+    //-Angular Material Library 
+    script(src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js")
+
+    link(rel="stylesheet", href="/javascripts/angular-timeline.css")
+    script(src="/javascripts/angular-timeline.js")
+
+    script(src='/application.js')
+    script(src='/javascripts/index.js')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body(ng-controller="mainController")
+    block content
+
+      //new ChatBotUiLoader.FullPageLoader().load();
+
+    //script(src="./lex-web-ui-loader.js")
+    //script.
+      /*
+        The loader library creates a global object named ChatBotUiLoader
+        It includes the IframeLoader constructor
+        An instance of IframeLoader has the load function which kicks off
+        the load process
+      */
+
+      // options for the loader constructor
+      var loaderOptions = {
+        // you can put the chatbot UI config in a JSON file
+        configUrl: './chatbot-ui-loader-config.json',
+
+        // the full page chatbot UI that will be iframed
+        iframeSrcPath: './chatbot-index.html#/?lexWebUiEmbed=true'
+      };
+
+      // The following statement instantiates the IframeLoader
+      var iframeLoader = new ChatBotUiLoader.IframeLoader(loaderOptions);
+
+      // chatbot UI config
+      // The loader can also obtain these values from other sources such
+      // as a JSON file or events. The configUrl variable in the
+      // loaderOptions above can be used to put these config values in a file
+      // instead of explicitly passing it as an argument.
+      var chatbotUiconfig = {
+        ui: {
+          // origin of the parent site where you are including the chatbot UI
+          // set to window.location.origin since hosting on same site
+          parentOrigin: window.location.origin,
+        },
+        iframe: {
+          // origin hosting the HTML file that will be embedded in the iframe
+          // set to window.location.origin since hosting on same site
+          iframeOrigin: window.location.origin,
+        },
+        cognito: {
+          // Your Cognito Pool Id - this is required to provide AWS credentials
+          poolId: '<your cognito pool id>'
+        },
+        lex: {
+          // Lex Bot Name in your account
+          botName: '<your lex bot name>'
+        }
+      };
+
+      // Call the load function which returns a promise that is resolved
+      // once the component is loaded or is rejected if there is an error
+      iframeLoader.load(chabotUiConfig)
+        .then(function () {
+          console.log('iframe loaded');
+        })
+        .catch(function (err) {
+          console.error(err);
+        });
+
+    

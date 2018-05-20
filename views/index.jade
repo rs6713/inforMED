@@ -1,0 +1,74 @@
+extends layout
+
+block content
+  div(id="contents")
+    div(id="menu")
+      img(src="images/user.png")#user-menu
+      img(src="images/microphone.png")#microphone-menu
+      //img(src="images/graph.png")#graph-menu
+
+
+    img(id="logo", src="images/logo3.png")
+
+  div(id="main")
+    div(id="user-profile")
+      #user-basics
+        div
+          h2 Name
+          {{currentuser.name}}
+        div
+          h2 Condition
+          {{currentuser.condition}}
+        div
+          h2 Job
+          {{currentuser.job}}
+      #hobbies
+        h2 Hobbies
+        div(ng-repeat="hob in currentuser.hobbies" style="background-color:{{colors[$index]}}") {{hob}} 
+
+      #graphs
+        #graph-type
+          h2#symptomchart(ng-click="userchart='symptoms'") Symptoms
+          h2#appointmentchart(ng-click="userchart='appointments'") Appointments
+          br
+          canvas(id="line" class="chart chart-line" chart-data="userSymptomsData" chart-colors="chartcolors"
+                  chart-labels="userLabels" chart-series="userSymptoms" chart-options="options"
+                  chart-click="onClick" ng-if="userchart=='symptoms'"
+          )
+
+          timeline(ng-if="userchart=='appointments'")
+            timeline-event(ng-repeat="event in userAppointments", side="right")
+              timeline-badge(class="{{event.badgeClass}}")
+                i(class="glyphicon {{event.badgeIconClass}}")
+              
+              timeline-panel(class="{{event.badgeClass}}")
+                timeline-heading
+                  h4 {{event.title}} 
+                p {{event.content}}
+
+
+    //div(id="user-activity")
+      h2 Symptoms
+      canvas(id="line" class="chart chart-line" chart-data="userSymptomsData" 
+              chart-labels="userLabels" chart-series="userSymptoms" chart-options="options"
+               chart-click="onClick"
+      )
+    div(id="main-chat")
+      iframe(src="chat_bot.html")
+
+      //#chat
+        div(ng-repeat="conv in conversation" id="{{conv.type}}-text" )
+          {{conv.text}}
+        div(ng-if="conv.type=='bot'")#bot-text
+          {{conv.text}}
+        br
+
+
+      //#chat-submit
+        input(placeholder="What do you want to ask?" ng-model="userquery")
+        div(ng-click="submitchat()") Submit
+    div(id="login")
+      div(id="login-container")
+        input(placeholder="Username" ng-model="username")
+        input(placeholder="Password" ng-model="password" type="password")
+        div(ng-click="login") Login
