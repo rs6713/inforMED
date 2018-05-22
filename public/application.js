@@ -37,7 +37,7 @@ mainApp.controller('mainController',['$scope','$timeout', '$sce','$mdToast' , "$
         "condition": "Lymphoma",
         "appointments":[{"Date":"17-05-2018", "Type": "Diagnosis", "Notes":""},{"Date":"11-06-2018", "Type": "First Infusion", "Notes":""}],
         "hobbies": ["Coding", "Graphics", "Piano"],
-        "symptoms":{"Pain":[4,3,7,8,5], "Vomiting":[0,0,3,2,1], "Dates":["11-01-2018","14-02-2018","11-03-2018","11-05-2018","11-06-2018"]}
+        "symptoms":{"Pain":[4,3,7,8,5], "Vomiting":[0,0,3,2,1],  "Temperature":[36, 37, 35 , 35, 36], "Dates":["11-01-2018","14-02-2018","11-03-2018","11-05-2018","11-06-2018"]}
     };
     $scope.hello="heya";
 
@@ -71,14 +71,74 @@ mainApp.controller('mainController',['$scope','$timeout', '$sce','$mdToast' , "$
             $scope.userLabels=$scope.currentuser.symptoms[key];
         }
         i+=1
- 
     }
+
+    $scope.userSymptomsData= {
+        labels: $scope.currentuser.symptoms['Dates'],
+        datasets:[
+        {
+            type:'line',
+            label: 'Pain',
+            yAxesID: 'y-axis-1',
+            data: $scope.currentuser.symptoms['Pain']
+          },
+          {
+            type:'line',
+            label: 'Vomiting',
+            yAxesID: 'y-axis-1',
+            data: $scope.currentuser.symptoms['Vomiting']
+          },
+          {
+            type:'line',
+            label: 'Temperature',
+            yAxesID: 'y-axis-2',
+            data: $scope.currentuser.symptoms['Temperature']
+          }
+
+    ]};
+
+    $scope.userSymptomsData= [$scope.currentuser.symptoms['Pain'], $scope.currentuser.symptoms['Vomiting'], $scope.currentuser.symptoms['Temperature'] ]
+    $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-1' },{ yAxisID: 'y-axis-2' }];
+    //var ctx =  $("#sippity");
+    //var ctx=document.getElementById("sippity");
+    
+    $scope.options= {
+          scales: {
+
+            yAxes: [
+                {
+                  id: 'y-axis-1',
+                  type: 'linear',
+                  display: true,
+                  min: 32,
+                  max: 42,
+                  position: 'left'
+                },
+                {
+                  id: 'y-axis-2',
+                  type: 'linear',
+                  min: 0,
+                  max: 10,
+                  display: true,
+                  position: 'right'
+                }
+              ],
+              legend: {
+                display: true,
+                labels: {
+                    fontColor: '#222222'
+                }
+                }
+          }
+        };
+
+
     
 
     $scope.onClick = function (points, evt) {
       console.log(points, evt);
     };
-    $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
+    $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-1' },{ yAxisID: 'y-axis-2' }];
     $scope.options = {
       scales: {
         yAxes: [
@@ -86,16 +146,26 @@ mainApp.controller('mainController',['$scope','$timeout', '$sce','$mdToast' , "$
             id: 'y-axis-1',
             type: 'linear',
             display: true,
+            min: 32,
+            max: 42,
             position: 'left'
           },
           {
             id: 'y-axis-2',
             type: 'linear',
+            min: 0,
+            max: 10,
             display: true,
             position: 'right'
           }
         ]
-      }
+      },
+      legend: {
+        display: true,
+        labels: {
+            fontColor: '#222222'
+        }
+        }
     };
 
 
@@ -217,9 +287,9 @@ mainApp.controller('mainController',['$scope','$timeout', '$sce','$mdToast' , "$
                     
                         var response=lexResponse.responseCard.genericAttachments[0];
                         //console.log("hello",lexResponse.responseCard, lexResponse.responseCard.genericAttachments[0].buttons)
-                        var crafted="";
+                        var crafted="<ul>";
                         for(var i=0; i<response.buttons.length;i++){
-                            crafted=crafted+ response.buttons[i].text+", ";
+                            crafted=crafted+"<li>"+ response.buttons[i].text+"</li>";
                         }
                         console.log(crafted)
                         console.log($scope.conversation)

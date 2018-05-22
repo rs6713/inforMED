@@ -31,10 +31,12 @@ block content
           h2#symptomchart(ng-click="userchart='symptoms'") Symptoms
           h2#appointmentchart(ng-click="userchart='appointments'") Appointments
           br
-          canvas(id="line" class="chart chart-line" chart-data="userSymptomsData" chart-colors="chartcolors"
-                  chart-labels="userLabels" chart-series="userSymptoms" chart-options="options"
-                  chart-click="onClick" ng-if="userchart=='symptoms'"
-          )
+          //canvas(ng-if="userchart=='symptoms'")#sippity
+          canvas(id="line" ,class="chart chart-line", chart-data="userSymptomsData" ,chart-colors="chartcolors",
+                  chart-series="userSymptoms" ,chart-options="options", chart-labels="userLabels",
+                  chart-click="onClick",chart-dataset-override="datasetOverride", ng-if="userchart=='symptoms'")
+
+ 
 
           timeline(ng-if="userchart=='appointments'")
             timeline-event(ng-repeat="event in userAppointments", side="right")

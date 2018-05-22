@@ -1,6 +1,6 @@
-
+var hello;
 $(document).ready(function(){
-
+    hello=document.getElementById("hello");
 
     $("#graph-menu").click(function(){
         
